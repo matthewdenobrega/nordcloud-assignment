@@ -11,7 +11,9 @@ The Azure functions tools for Visual Studio - see [this article](https://docs.mi
 ## Getting Started
 
 Clone the repository, open the project in Visual studio, and run the NordCloudAssignment project.
-You can call the API from postman: [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/c2962df02e4c4ee2985f)
+You can call the API from postman: 
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/c2962df02e4c4ee2985f)
 
 ## Running the tests
 
@@ -21,6 +23,7 @@ Run all the tests in the NordCloudAssignmentTest project - the Tests are written
 
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmatthewdenobrega%2Fnordcloud-assignment%2Fmaster%2FNordCloudAssignment%2Fazuredeploy.json)
 [![Visualize](http://armviz.io/visualizebutton.png)](http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fmatthewdenobrega%2Fnordcloud-assignment%2Fmaster%2FNordCloudAssignment%2Fazuredeploy.json)
+
 After deploying, publish the function to the newly created PowerGridFunction function app.
 
 ## Built With
@@ -42,7 +45,7 @@ We use [SemVer](http://semver.org/) for versioning.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 
