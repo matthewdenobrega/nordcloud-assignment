@@ -4,6 +4,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NordCloudAssignment.Domain;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace NordCloudAssignment
     public static class PowerGridFunction
     {
         [FunctionName("PowerGridFunction")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]HttpRequest req, ILogger logger)
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]HttpRequest req, ILogger logger)
         {
             logger.LogInformation("PowerGridFunction processing request");
 
@@ -35,11 +36,21 @@ namespace NordCloudAssignment
                 var message = new PowerGrid(input.GridConfig)
                     .BestLinkStationForPositionMessage(new Position(input.Position[0], input.Position[1]));
 
-                return new OkObjectResult(message);
+                var result = new JObject
+                {
+                    { "message", message }
+                };
+
+                return new OkObjectResult(result);
             }
             catch (Exception exception)
             {
-                return new BadRequestObjectResult("An error occurred: " + exception.Message);
+                var error = new JObject
+                {
+                    { "message", "An error occurred: " + exception.Message }
+                };
+
+                return new BadRequestObjectResult(error);
             }
         }
     }
