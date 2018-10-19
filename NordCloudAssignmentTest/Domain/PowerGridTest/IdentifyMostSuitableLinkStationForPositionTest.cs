@@ -20,6 +20,17 @@ namespace NordCloudAssignmentTest.Domain.PowerGridTest
         }
 
         [TestMethod]
+        public void Identify_most_suitable_link_station_for_position_should_return_empty_if_there_are_no_link_stations()
+        {
+            var gridConfiguration = new List<List<double>>();
+            var powerGrid = new PowerGrid(gridConfiguration);
+
+            var linkStationWithPower = powerGrid.IdentifyMostSuitableLinkStationForPosition(new Position(0, 0));
+
+            Assert.AreEqual(default((LinkStation, double)), linkStationWithPower);
+        }
+
+        [TestMethod]
         public void Identify_most_suitable_link_station_for_position_should_identify_the_most_suitable_link_station()
         {
             var gridConfiguration = new List<List<double>>();
@@ -56,7 +67,7 @@ namespace NordCloudAssignmentTest.Domain.PowerGridTest
 
             var linkStationWithPower = powerGrid.IdentifyMostSuitableLinkStationForPosition(new Position(5, 5));
 
-            Assert.IsNull(linkStationWithPower);
+            Assert.AreEqual(default((LinkStation, double)), linkStationWithPower);
         }
     }
 }

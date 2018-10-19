@@ -11,9 +11,22 @@ The Azure functions tools for Visual Studio - see [this article](https://docs.mi
 ## Getting Started
 
 Clone the repository, open the project in Visual studio, and run the NordCloudAssignment project.
+
 You can call the API from postman: 
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/c2962df02e4c4ee2985f)
+
+The JSON API takes an input of the form:
+{
+	"Position": [1, 1],
+	"GridConfig": [
+		[0, 0, 10],
+		[20, 20, 5],
+		[10, 0, 12]
+	]
+}
+
+And returns a wrapper object with the appropriate message. See [the spec](NCStech-problem.pdf) for more detail.
 
 ## Running the tests
 

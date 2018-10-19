@@ -26,19 +26,22 @@ namespace NordCloudAssignment.Domain
 
             var linkStationWithPower = IdentifyMostSuitableLinkStationForPosition(position);
 
-            return linkStationWithPower != null ?
-                $"Best link station for point {position.X}, {position.Y} is {linkStationWithPower.Item1.Position.X}, {linkStationWithPower.Item1.Position.Y} with power {linkStationWithPower.Item2}" :
-                $"No link station within reach for point {position.X}, {position.Y}";
+            return default((LinkStation, double)).Equals(linkStationWithPower) ?
+                $"No link station within reach for point {position.X}, {position.Y}" :
+                $"Best link station for point {position.X}, {position.Y} is {linkStationWithPower.Item1.Position.X}, {linkStationWithPower.Item1.Position.Y} with power {linkStationWithPower.Item2}";
         }
 
-        public Tuple<LinkStation, double> IdentifyMostSuitableLinkStationForPosition(Position position)
+        public (LinkStation, double) IdentifyMostSuitableLinkStationForPosition(Position position)
         {
             if (position == null) throw new ArgumentException("Position must be supplied to calculate best link station");
 
-            var bestLinkStation = _linkStations.OrderByDescending(ls => ls.PowerAtPosition(position)).FirstOrDefault();
-            var powerOfBestLinkStation = bestLinkStation.PowerAtPosition(position);
+            if (_linkStations.Count == 0) return default((LinkStation, double));
 
-            return powerOfBestLinkStation > 0 ? Tuple.Create(bestLinkStation, bestLinkStation.PowerAtPosition(position)) : null;
+            return _linkStations
+                .Select(ls => (ls, ls.PowerAtPosition(position)))
+                .Where(lwp => lwp.Item2 > 0)
+                .OrderByDescending(lwp => lwp.Item2)
+                .FirstOrDefault();
         }
 
         public int NumberOfLinkStations()
